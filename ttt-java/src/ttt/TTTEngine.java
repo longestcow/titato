@@ -21,7 +21,7 @@ public class TTTEngine {
 		fr.setVisible(true);
 		fr.setState(JFrame.ICONIFIED);
         ServerSocket serverSocket = new ServerSocket(8080, 10);
-        fr.setTitle("server started");
+        fr.setTitle("server started (dont close this)");
         System.out.println("server started");
         Socket socket = serverSocket.accept();
         InputStream is = socket.getInputStream();
