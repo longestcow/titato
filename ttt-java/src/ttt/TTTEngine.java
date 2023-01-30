@@ -28,7 +28,8 @@ public class TTTEngine {
         OutputStream os = socket.getOutputStream();
         fr.setTitle("connected");
         System.out.println("connected");
-        
+        fr.setVisible(false);
+        fr.dispose();
         while(true) {
         	the(is,os);
         }
