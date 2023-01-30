@@ -9,18 +9,24 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 
 public class TTTEngine {
-	
+		
 	static String[][] grid = new String[3][3];
 	static HashMap<String, Integer> scores = new HashMap<>(); 
 	public static void main(String[] args)  {
 		scores.put("x", 10);scores.put("o", -10);scores.put("t", 0);scores.put(".", 10);
 		//receive
 		try {
+		JFrame fr = new JFrame("engine's running");
+		fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fr.setVisible(true);
+		fr.setState(JFrame.ICONIFIED);
         ServerSocket serverSocket = new ServerSocket(8080, 10);
+        fr.setTitle("server started");
         System.out.println("server started");
         Socket socket = serverSocket.accept();
         InputStream is = socket.getInputStream();
         OutputStream os = socket.getOutputStream();
+        fr.setTitle("connected");
         System.out.println("connected");
         
         while(true) {
