@@ -17,7 +17,6 @@ public class buttonClick : MonoBehaviour
     {
         but= GameObject.Find(gameObject.name).GetComponent<Button>();
         img= GameObject.Find(gameObject.name).GetComponent<Image>();
-        but.onClick.AddListener(ButtonClick);
         
         x=GameObject.Find("buttons").GetComponent<Image>().sprite;
         state=".";
@@ -30,7 +29,7 @@ public class buttonClick : MonoBehaviour
         
     }
 
-    void ButtonClick(){
+    public void ButtonClick(){
         state="x";
         Color temp = GameObject.Find(gameObject.name).GetComponent<Image>().color;
         temp.a=1;

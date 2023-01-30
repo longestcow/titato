@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
+import javax.swing.JFrame;
+
 public class TTTEngine {
 	
 	static String[][] grid = new String[3][3];

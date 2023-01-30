@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class clientSocket : MonoBehaviour
 {
+
+    public AudioSource aud;
     IPEndPoint addr;
     Socket sock;
     Sprite o;
@@ -31,8 +33,8 @@ public class clientSocket : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown("space")) {
-            Debug.ClearDeveloperConsole();
+        if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) {
+            aud.Play();
             foreach(Transform child in gameObject.transform) {
                 child.GetComponent<buttonClick>().state="."; 
                 Color temp = child.GetComponent<Image>().color;
@@ -75,7 +77,7 @@ public class clientSocket : MonoBehaviour
             foreach(Transform child in GameObject.Find("buttons").transform){
                 curr = Char.ToString(rcv.ToCharArray()[i]);
                 
-                if(curr=="o"){
+                if(curr=="o"&&child.GetComponent<Button>().enabled==true){
                         child.GetComponent<buttonClick>().state=(curr);
                         Color temp = child.GetComponent<Image>().color;
                         temp.a=1;
