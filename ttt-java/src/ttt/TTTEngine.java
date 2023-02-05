@@ -128,7 +128,6 @@ public class TTTEngine {
 			}
 		}
 		grid[x][y]="o";
-		count=0;
 		String winner = checkWinner("x", grid);
         if(winner!=".") 
         	return "won:"+winner+"$"+gridToString(grid);
