@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 public class TTTEngine {
 		
 	static String[][] grid = new String[3][3];
-	static HashMap<String, Integer> scores = new HashMap<>(); 
+	static HashMap<String, Integer> scores = new HashMap<>();
 	public static void main(String[] args)  {
 		scores.put("x", 10);scores.put("o", -10);scores.put("t", 0);scores.put(".", 10);
 		//receive
@@ -117,7 +117,7 @@ public class TTTEngine {
 			for(int j = 0; j<3; j++) {
 				if(grid[i][j].equals(".")) {
 					grid[i][j]="o";
-					score = minimax(true);
+					score = minimax(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
 					grid[i][j]=".";
 					if(score<bestScore) {
 						bestScore=score;
@@ -128,7 +128,7 @@ public class TTTEngine {
 			}
 		}
 		grid[x][y]="o";
-		
+		count=0;
 		String winner = checkWinner("x", grid);
         if(winner!=".") 
         	return "won:"+winner+"$"+gridToString(grid);
@@ -137,19 +137,22 @@ public class TTTEngine {
         }
 	}
 	
-	public static int minimax(boolean maxi) {
+	public static int minimax(boolean maxi, int alpha, int beta) {
 		if(!checkWinner("x", grid).equals(".")) 
 			return scores.get(checkWinner("x", grid));
 		
 		if(maxi) {
 			int score=0, bestScore = Integer.MIN_VALUE;
-			for(int i = 0; i<3; i++) {
+			p: for(int i = 0; i<3; i++) {
 				for(int j = 0; j<3; j++) {
 					if(grid[i][j].equals(".")) {
 						grid[i][j]="x";
-						score = minimax(false);
+						score = minimax(false, alpha, beta);
 						grid[i][j]=".";
 						bestScore=Math.max(score, bestScore);
+						alpha = Math.max(alpha, bestScore);
+						if(beta<=alpha)
+							break p;
 					}
 				}
 			}
@@ -158,13 +161,16 @@ public class TTTEngine {
 		}
 		else {
 			int score=0, bestScore = Integer.MAX_VALUE;
-			for(int i = 0; i<3; i++) {
+			p: for(int i = 0; i<3; i++) {
 				for(int j = 0; j<3; j++) {
 					if(grid[i][j].equals(".")) {
 						grid[i][j]="o";
-						score = minimax(true);
+						score = minimax(true, alpha, beta);
 						grid[i][j]=".";
 						bestScore=Math.min(score, bestScore);
+						beta = Math.min(beta, bestScore);
+						if(beta<=alpha)
+							break p;
 					}
 				}
 			}
